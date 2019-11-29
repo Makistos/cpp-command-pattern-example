@@ -11,11 +11,11 @@ void CommandRemove::execute() {
 }
 
 void GUI::run(int idx) {
-	commands.at(idx).execute();
+	commands.at(idx)->execute();
 }
 
 void GUI::add_command(unsigned idx, const Command& cmd) {
-	commands[idx] = cmd;
+	commands[idx] = std::make_shared<Command>(cmd);
 }
 
 int main(void){

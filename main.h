@@ -3,10 +3,13 @@
 
 #include <string>
 #include <array>
+#include <memory>
 
 class Command {
 	public:
-		virtual void execute();
+		Command() {}
+		virtual void execute() = 0;
+		~Command() {}
 
 };
 
@@ -35,7 +38,7 @@ class GUI {
 		void run(int idx);
 		void add_command(unsigned idx, const Command& cmd);
 	private:
-		std::array<Command, 2> commands;
+		std::array<std::shared_ptr<Command>, 2> commands;
 };
 
 #endif
