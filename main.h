@@ -8,12 +8,10 @@
 class Command {
 	public:
 		virtual void execute() = 0;
-		virtual ~Command() {}
 };
 
 class CommandAdd : virtual public Command {
 	public:
-		CommandAdd() = delete;
 		CommandAdd(std::string name) :
 			name_{name} {}
 		virtual void execute() override;
@@ -23,7 +21,6 @@ class CommandAdd : virtual public Command {
 
 class CommandRemove : virtual public Command {
 	public:
-		CommandRemove() = delete;
 		CommandRemove(int id) :
 			id_{id} {}
 		virtual void execute() override;
