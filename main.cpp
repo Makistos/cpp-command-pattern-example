@@ -14,13 +14,15 @@ void GUI::run(int idx) {
 	commands.at(idx)->execute();
 }
 
-void GUI::add_command(unsigned idx, const Command& cmd) {
-	commands[idx] = std::make_shared<Command>(cmd);
+void GUI::add_command(unsigned idx, const std::shared_ptr<Command> cmd) {
+	commands[idx] = cmd;
 }
 
 int main(void){
 	bool quit = false;
 	GUI gui;
+	std::string name;
+	std::string id;
 
 	while(!quit) {
 		std::string input;
@@ -31,17 +33,17 @@ int main(void){
 
 		switch (std::stoi(input)) {
 		case 1: {
-				std::string name;
 				std::cout << "Name: ";
 				getline(std::cin, name);
-				gui.add_command(0, CommandAdd{name});
+				gui.add_command(0,
+						std::make_shared<CommandAdd>(CommandAdd{name}));
 			}
 			break;
 		case 2: {
-				std::string id;
 				std::cout << "ID: ";
 				getline(std::cin, id);
-				gui.add_command(1, CommandRemove{std::stoi(id)});
+				gui.add_command(1,
+						std::make_shared<CommandRemove>(CommandRemove{std::stoi(id)}));
 			}
 			break;
 		default:

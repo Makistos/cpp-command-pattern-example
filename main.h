@@ -7,13 +7,11 @@
 
 class Command {
 	public:
-		Command() {}
 		virtual void execute() = 0;
-		~Command() {}
-
+		virtual ~Command() {}
 };
 
-class CommandAdd : public Command {
+class CommandAdd : virtual public Command {
 	public:
 		CommandAdd() = delete;
 		CommandAdd(std::string name) :
@@ -23,7 +21,7 @@ class CommandAdd : public Command {
 		std::string& name_;
 };
 
-class CommandRemove : public Command {
+class CommandRemove : virtual public Command {
 	public:
 		CommandRemove() = delete;
 		CommandRemove(int id) :
@@ -36,7 +34,7 @@ class CommandRemove : public Command {
 class GUI {
 	public:
 		void run(int idx);
-		void add_command(unsigned idx, const Command& cmd);
+		void add_command(unsigned idx, std::shared_ptr<Command> cmd);
 	private:
 		std::array<std::shared_ptr<Command>, 2> commands;
 };
